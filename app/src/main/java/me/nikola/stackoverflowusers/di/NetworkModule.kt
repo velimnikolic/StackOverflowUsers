@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import me.nikola.stackoverflowusers.data.remote.StackOverflowApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -17,9 +19,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(moshi: Moshi): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 
     @Provides

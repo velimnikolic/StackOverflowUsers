@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.coil.compose)
     implementation(libs.hilt.android)
+    implementation(libs.moshi.kotlin)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.moshi)
 
