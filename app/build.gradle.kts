@@ -1,27 +1,18 @@
+import com.android.build.api.dsl.ApplicationExtension
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    id("stackoverflowusers.android.application")
+    id("stackoverflowusers.android.application.compose")
+    id("stackoverflowusers.android.hilt")
 }
 
-android {
+extensions.configure<ApplicationExtension>("android") {
     namespace = "me.nikola.stackoverflowusers"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
 
     defaultConfig {
         applicationId = "me.nikola.stackoverflowusers"
-        minSdk = 24
-        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -32,18 +23,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
