@@ -23,7 +23,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             StackOverflowUsersTheme {
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-                UsersRoute(uiState = uiState)
+                UsersRoute(
+                    uiState = uiState,
+                    onFollowClick = viewModel::followUser,
+                    onUnfollowClick = viewModel::unfollowUser,
+                    onRetryClick = viewModel::retry,
+                )
             }
         }
     }
